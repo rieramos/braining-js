@@ -23,5 +23,6 @@ function startGame() {
 
     log('canvas size: ' + canvasSize + ' | icons size: ' + elementsSize);
 
+    game.font = elementsSize + 'px Verdana';
 	game.fillText(arrows['up'],100,100);
 }
