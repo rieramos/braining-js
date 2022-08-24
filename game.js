@@ -5,6 +5,7 @@ function log(message) { console.log("[braining] " + message); }
 function warn(message) { console.warn("[braining] " + message); }
 
 window.addEventListener('load', startGame)
+window.addEventListener('resize', startGame)
 
 function startGame() {
 
@@ -19,10 +20,14 @@ function startGame() {
     canvas.setAttribute('width',canvasSize);
     canvas.setAttribute('height',canvasSize);
 
-    const elementsSize = canvasSize / 9;
+    const elementsSize = canvasSize / 3;
 
     log('canvas size: ' + canvasSize + ' | icons size: ' + elementsSize);
 
     game.font = elementsSize + 'px Verdana';
-	game.fillText(arrows['up'],100,100);
+    game.textAlign = 'end';
+
+    for (let x = 1; x < 4; x++) {
+        game.fillText(arrows['up'],elementsSize * x, elementsSize);
+    }
 }
