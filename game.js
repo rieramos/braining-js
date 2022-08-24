@@ -27,7 +27,9 @@ function startGame() {
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
 
-    for (let x = 1; x < 4; x++) {
-        game.fillText(arrows['up'],elementsSize * x, elementsSize);
+    for (let y = 1; y < 4; y++) {
+        for (let x = 1; x < 4; x++) {
+            game.fillText(arrows['up'],elementsSize * x, elementsSize * y);
+        }
     }
 }
