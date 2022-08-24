@@ -15,16 +15,23 @@ function canvasInterface(){
     //usage: canvasInterfaceIcons
     function canvasInterfaceIcons() { const elementsSize = canvasSize / 5;
 
+        log('canvas size: ' + canvasSize + ' | icons size: ' + elementsSize);
+
         game.font = elementsSize + 'px Verdana';
         game.textAlign = 'end';
     
+        //Cox, T (2022) Taller Práctico de JavaScript: ¡Crea tu Primer Videojuego! [Source code]. http://www.platzi.com
+            const map = maps[0] 
+                        .match(/[IXO\-]+/g) // get all ocurrencies that start with (I, X, O, '-')
+                        .map(a=>a.split("")) // split all basically xD
+
+        log(map[0][0]);
+
         for (let y = 1; y < 6; y++) { log('y axis: ' + y);
             for (let x = 1; x < 6; x++) { log('x axis: ' + x);
                 game.fillText(arrows['up'],elementsSize * x, elementsSize * y);
             }
-        }
-
-        log('canvas size: ' + canvasSize + ' | icons size: ' + elementsSize);
+        }; log(maps)
     }
 
     if (window.innerHeight > window.innerWidth){
