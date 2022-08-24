@@ -1,24 +1,26 @@
-//symbols/emojis
-const arrows = {
-  'X': '⬆️',
-  'right': '➡️',
-  'down': '⬇️',
-  'left': '⬅️',
-};
+function log(message) { console.log("[braining][maps] " + message); }
+function warn(message) { console.warn("[braining][maps] " + message); }
 
-// diagonal arrows
-const dArrows = {
-  'upright': '↗️',
-  'downright': '↘️',
-  'downleft': '↙️',
-  'upleft': '↖️',
-};
+var wildcards = (function(){
 
-// special arrows
-const sArrows = {
-  'twodv': '↕️', // twodv: two directions vertical
-  'twodh': '↔️', // twodv: two directions horizontal
-};
+  //vars
+  let wildcards = { 'I':'', 'O':'', 'X':'', };
+  const symbols = { 'up': '⬆️', 'right': '➡️', 'down': '⬇️', 'left': '⬅️', };
+
+  //funcs
+  function getItem(items) { log('directions avalaibles: ' + items)
+  
+    return items[Math.floor(Math.random()*items.length)];
+  };
+
+  for (const wildcard in wildcards) { var direction = getItem(Object.keys(symbols)); //random direction
+    
+    log(wildcard + ': ' + symbols[direction]);
+
+    wildcards[wildcard] = symbols[direction]; delete symbols[direction]; //set wildcards
+
+  }; return wildcards;
+})();
 
 //maps
 const maps = [];

@@ -29,7 +29,7 @@ function canvasInterface(){
 
         for (let y = 1; y < 6; y++) { log('y axis: ' + y);
             for (let x = 1; x < 6; x++) { log('x axis: ' + x);
-                game.fillText(arrows[map[y][x]],elementsSize * x, elementsSize * y);
+                game.fillText(wildcards[map[y][x]],elementsSize * x, elementsSize * y);
             }
         }; log(maps)
     }
