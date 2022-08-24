@@ -1,6 +1,6 @@
 //symbols/emojis
 const arrows = {
-  'up': '⬆️',
+  'X': '⬆️',
   'right': '➡️',
   'down': '⬇️',
   'left': '⬅️',
