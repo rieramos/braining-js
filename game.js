@@ -1,13 +1,11 @@
 /*
-
 how to
 tap the button pointing the same direction as the row in the center of screen. ignore the other arrows
 
 skills
 attention to details, speed, and ability to ignore competing information
 
-From:
-	Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play Store. https://play.google.com/store/apps/details?id=mindware.mindgames
+From: Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play Store. https://play.google.com/store/apps/details?id=mindware.mindgames
 */
 
 //funcs (unralted)
@@ -35,9 +33,9 @@ function canvasInterface(){
 
     }; let difficulty = 5;
 
-    const elementSize = canvaSize() / difficulty; log('icons size: ' + elementSize);
+    const element = canvaSize() / difficulty; log('icons size: ' + element);
 
-    game.font = elementSize + 'px Verdana' ; game.textAlign = 'end';
+    game.font = element + 'px Verdana' ; game.textAlign = 'end';
 
     function assignIcons(n) {
         
@@ -45,18 +43,17 @@ function canvasInterface(){
                            .map(a=>a.split(""));    // split all basically xD
         //↑↑↑ Cox, T (2022) Taller Práctico de JavaScript: ¡Crea tu Primer Videojuego! [Source code]. http://www.platzi.com
 
-        log("check integrity: random 'map' item: " + map[Math.floor(Math.random() * 10)]
-                                                        [Math.floor(Math.random() * 10)]
+        log("check integrity: random 'map' item: " + map[Math.floor(Math.random() * difficulty)]
+                                                        [Math.floor(Math.random() * difficulty)]
 
         +   " | random 'wildcard' item: " + wildcards['X']);
 
-        for (let y = 1; y <= difficulty + 1; y++){
-            for (let x = 1; x <= difficulty + 1; x++) {
-            
-                log((y - 1) + ' (y) ' + (x - 1) + ' (x)');
-                game.fillText(wildcards[map[y - 1][x - 1]], elementSize * x, elementSize * y);
-            };
-        };
+        map.forEach((n, x) => {
+            n.forEach((symbol, y) => { game.fillText(wildcards[symbol],
+                                                     [element * (y + 1)],
+                                                     [element * (x + 1)])
+            });
+        })
     }; assignIcons(0);
 };
 
