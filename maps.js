@@ -1,11 +1,11 @@
 function log(message) { console.log("[braining][maps] " + message); }
 function warn(message) { console.warn("[braining][maps] " + message); }
 
-var wildcards = (function(){
+wildcards = (function(){
 
   //vars
-  let wildcards = { 'I':'', 'O':'', 'X':'', };
-  const symbols = { 'up': '⬆️', 'right': '➡️', 'down': '⬇️', 'left': '⬅️', };
+  let wildcards = { 'I':'', 'O':'', 'X':'', '-':'',};
+  const symbols = { 'up': '⬆️', 'right': '➡️', 'down': '⬇️', 'left': '⬅️', 'none': ' ',};
 
   //funcs
   function getItem(items) { log('directions avalaibles: ' + items)
