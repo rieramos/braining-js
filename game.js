@@ -1,3 +1,15 @@
+/*
+
+how to
+tap the button pointing the same direction as the row in the center of screen. ignore the other arrows
+
+skills
+attention to details, speed, and ability to ignore competing information
+
+From:
+	Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play Store. https://play.google.com/store/apps/details?id=mindware.mindgames
+*/
+
 //funcs (unralted)
 function log(message) { console.log("[braining][main] " + message); }
 function warn(message) { console.warn("[braining][main] " + message); }
