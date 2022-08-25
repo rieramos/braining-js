@@ -1,52 +1,54 @@
-const canvas = document.querySelector('#game')
-const game = canvas.getContext('2d')
+//funcs (unralted)
+function log(message) { console.log("[braining][main] " + message); }
+function warn(message) { console.warn("[braining][main] " + message); }
 
-function log(message) { console.log("[braining] " + message); }
-function warn(message) { console.warn("[braining] " + message); }
+//vars
+canvas = document.querySelector('#game'); game = canvas.getContext('2d');
 
-window.addEventListener('load', main)
-window.addEventListener('resize', main)
+//events
+window.addEventListener('load', main); window.addEventListener('resize', main);
 
+//usage: canvasInterface
 function canvasInterface(){
-    //vars
-    let canvasSize;
 
-// funcs
-    //usage: canvasInterfaceIcons
-    function canvasInterfaceIcons() { const elementsSize = canvasSize / 5;
+    //usage: canvaSize
+    function canvaSize(){
 
-        log('canvas size: ' + canvasSize + ' | icons size: ' + elementsSize);
+        const size = (function(){ let height = window.innerHeight; let width = window.innerWidth;
+            
+            return height < width ? (height * 0.8) : (width * 0.8);
+        })(); log('canvas size: ' + size); 
+        
+        canvas.setAttribute('width',size); canvas.setAttribute('height',size); return size
 
-        game.font = elementsSize + 'px Verdana';
-        game.textAlign = 'end';
-    
-        //Cox, T (2022) Taller Práctico de JavaScript: ¡Crea tu Primer Videojuego! [Source code]. http://www.platzi.com
-            const map = maps[0] 
-                        .match(/[IXO\-]+/g) // get all ocurrencies that start with (I, X, O, '-')
-                        .map(a=>a.split("")) // split all basically xD
+    }; let difficulty = 5;
 
-        log(map[0][0]);
+    const elementSize = canvaSize() / difficulty; log('icons size: ' + elementSize);
 
-        for (let y = 1; y < 6; y++) { log('y axis: ' + y);
-            for (let x = 1; x < 6; x++) { log('x axis: ' + x);
-                game.fillText(wildcards[map[y][x]],elementsSize * x, elementsSize * y);
-            }
-        }; log(maps)
-    }
+    game.font = elementSize + 'px Verdana' ; game.textAlign = 'end';
 
-    if (window.innerHeight > window.innerWidth){
-        canvasSize = window.innerWidth * 0.8;
-    } else {
-        canvasSize = window.innerHeight * 0.8;
-    }
+    function assignIcons(n) {
+        
+        const map = maps[n].match(/[IXO\-]+/g)      // get all ocurrencies that start with (I, X, O, '-')
+                           .map(a=>a.split(""));    // split all basically xD
+        //↑↑↑ Cox, T (2022) Taller Práctico de JavaScript: ¡Crea tu Primer Videojuego! [Source code]. http://www.platzi.com
 
-    // set canvas composition
-    canvas.setAttribute('width',canvasSize); canvas.setAttribute('height',canvasSize);
+        log("check integrity: random 'map' item: " + map[Math.floor(Math.random() * 10)]
+                                                        [Math.floor(Math.random() * 10)]
 
-    // set icons
-    canvasInterfaceIcons();
-}
+        +   " | random 'wildcard' item: " + wildcards['X']);
 
-function main(){ 
+        for (let y = 1; y <= difficulty + 1; y++){
+            for (let x = 1; x <= difficulty + 1; x++) {
+            
+                log((y - 1) + ' (y) ' + (x - 1) + ' (x)');
+                game.fillText(wildcards[map[y - 1][x - 1]], elementSize * x, elementSize * y);
+            };
+        };
+    }; assignIcons(0);
+};
+
+function main() { 
     canvasInterface();
-}
+    //other
+};
