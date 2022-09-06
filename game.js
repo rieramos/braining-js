@@ -39,9 +39,8 @@ function canvasInterface(){
 
     function assignIcons(n) {
         
-        const map = maps[n].match(/[IXO\-]+/g)      // get all ocurrencies that start with (I, X, O, '-')
-                           .map(a=>a.split(""));    // split all basically xD
-        //↑↑↑ Cox, T (2022) Taller Práctico de JavaScript: ¡Crea tu Primer Videojuego! [Source code]. http://www.platzi.com
+        const map = maps[n].match(/[IXO\-]+/g)
+                           .map(a=>a.split(""));
 
         log("check integrity: random 'map' item: " + map[Math.floor(Math.random() * difficulty)]
                                                         [Math.floor(Math.random() * difficulty)]
@@ -61,3 +60,7 @@ function main() {
     canvasInterface();
     //other
 };
+
+document.addEventListener("keydown", function( event ) {
+    log( event.type + ": " +  event.which );
+});
