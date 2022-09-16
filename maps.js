@@ -1,5 +1,7 @@
-function log(message) { console.log("[braining][maps] " + message); }
-function warn(message) { console.warn("[braining][maps] " + message); }
+const debug = true;
+
+function log(message) { debug && console.log("[braining][maps] " + message); }
+function warn(message) { debug && console.warn("[braining][maps] " + message); }
 
 const symbols = { 'up': '⬆️', 'right': '➡️', 'down': '⬇️', 'left': '⬅️', };
 
@@ -15,28 +17,21 @@ wildcards = (function(){
     return items[Math.floor(Math.random()*items.length)];
   };
 
-  for (const wildcard in wildcards) { //log(wildcard + ': ' + emojis[direction]);
-
-    log('wildcard: ' + wildcard);
+  for (const wildcard in wildcards) {
 
     switch (wildcard) {
       case 'A':
-        //
-        if ( Math.floor(Math.random()*1) === 1) {
-          //
-          wildcards[wildcard] = symbols[getItem(Object.keys(symbols))]; break;
-        };
+        //chooose a posible repeat option or, a new (just to get it some randomness)
+        if ( Math.floor(Math.random()*1) === 1) { wildcards[wildcard] = symbols[getItem(Object.keys(symbols))]; break };
 
       default:
         //set wildcards
-        direction = getItem(Object.keys(emojis)); log(direction)
-
+        direction = getItem(Object.keys(emojis));
         wildcards[wildcard] = emojis[direction]; delete emojis[direction];
+
     };
 
-  };
-  
-  return wildcards;
+  }; return wildcards;
 })();
 
 //maps
