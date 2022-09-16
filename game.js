@@ -47,15 +47,14 @@ function canvasInterface(){
         };
 
         map.forEach((n, x) => {
-            n.forEach((symbol, y) => { item=wildcards[symbol]; if (typeof item === 'undefined') { item = ' '; };
+            n.forEach((symbol, y) => { item=symbols[wildcards[symbol]]
 
-                game.fillText(item,
-                              [element * (y + 1)],
-                              [element * (x + 1)]) 
+                typeof item === 'undefined' && ( item = ' ');
+
+                game.fillText(item, [element * (y + 1)], [element * (x + 1)])
             });
         })
-
-    }; assignIcons(1);
+    }; assignIcons(Math.floor(Math.random()*maps.length));
 };
 
 function main() { 
