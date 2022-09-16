@@ -9,8 +9,8 @@ From: Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play S
 */
 
 //funcs (unralted)
-function log(message) { console.log("[braining][main] " + message); }
-function warn(message) { console.warn("[braining][main] " + message); }
+function log(message) { debug && console.log("[braining][main] " + message); }
+function warn(message) { debug && console.warn("[braining][main] " + message); }
 
 //vars
 canvas = document.querySelector('#game'); game = canvas.getContext('2d');
@@ -27,33 +27,41 @@ function canvasInterface(){
         const size = (function(){ let height = window.innerHeight; let width = window.innerWidth;
             
             return height < width ? (height * 0.8) : (width * 0.8);
-        })(); log('canvas size: ' + size); 
+
+        })(); log('canvas size: ' + Math.floor(size));
         
         canvas.setAttribute('width',size); canvas.setAttribute('height',size); return size
 
-    }; let difficulty = 5;
-
-    const element = canvaSize() / difficulty; log('icons size: ' + element);
+    };
+    
+    //temporary cells box n
+    let difficulty = 5;
+    
+    const element = canvaSize() / difficulty; log('icons size: ' + element + 'px');
 
     game.font = element + 'px Verdana' ; game.textAlign = 'end';
 
-    function assignIcons(n) {
+    function assignIcons(n) { log(maps[n])
         
-        const map = maps[n].match(/[IXO\-]+/g)
+        const map = maps[n].match(/[AX\-]+/g)
                            .map(a=>a.split(""));
 
-        log("check integrity: random 'map' item: " + map[Math.floor(Math.random() * difficulty)]
-                                                        [Math.floor(Math.random() * difficulty)]
-
-        +   " | random 'wildcard' item: " + wildcards['X']);
+        if (debug) {
+            for (let i = 0; i < difficulty; ++i) { const arr = map[i]; log('map[' + i + ']: ' + arr) }
+            for (const wildcard in wildcards) { log('wildcards[' + wildcard + ']: ' + wildcards['X']) }; log("wildcards[-]: ")
+        };
 
         map.forEach((n, x) => {
-            n.forEach((symbol, y) => { game.fillText(wildcards[symbol],
-                                                     [element * (y + 1)],
-                                                     [element * (x + 1)])
+            n.forEach((symbol, y) => { item=wildcards[symbol];
+
+                if (typeof item === 'undefined') { item = ' '; };
+
+                game.fillText(item,
+                                [element * (y + 1)],
+                                [element * (x + 1)]) 
             });
         })
-    }; assignIcons(0);
+    }; assignIcons(1);
 };
 
 function main() { 
