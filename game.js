@@ -39,7 +39,7 @@ function canvasInterface(){
 
     function assignIcons(n) {
         
-        const map = maps[n].match(/[IXO\-]+/g)
+        const map = maps[n].match(/[AX\-]+/g)
                            .map(a=>a.split(""));
 
         log("check integrity: random 'map' item: " + map[Math.floor(Math.random() * difficulty)]
@@ -48,12 +48,18 @@ function canvasInterface(){
         +   " | random 'wildcard' item: " + wildcards['X']);
 
         map.forEach((n, x) => {
-            n.forEach((symbol, y) => { game.fillText(wildcards[symbol],
-                                                     [element * (y + 1)],
-                                                     [element * (x + 1)])
+            n.forEach((symbol, y) => { item=wildcards[symbol];
+                
+                log(wildcards['A']);
+
+                if (typeof item === 'undefined') { item = ' '; };
+
+                game.fillText(item,
+                                [element * (y + 1)],
+                                [element * (x + 1)]) 
             });
         })
-    }; assignIcons(0);
+    }; assignIcons(1);
 };
 
 function main() { 

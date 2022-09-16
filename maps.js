@@ -1,11 +1,13 @@
 function log(message) { console.log("[braining][maps] " + message); }
 function warn(message) { console.warn("[braining][maps] " + message); }
 
+const symbols = { 'up': '⬆️', 'right': '➡️', 'down': '⬇️', 'left': '⬅️', };
+
 wildcards = (function(){
 
   //vars
-  let wildcards = { 'I':'', 'O':'', 'X':'', '-':'',};
-  const symbols = { 'up': '⬆️', 'right': '➡️', 'down': '⬇️', 'left': '⬅️', 'none': ' ',};
+  const emojis = { ...symbols };
+  let wildcards = { 'X':'', 'A':'', };
 
   //funcs
   function getItem(items) { log('directions avalaibles: ' + items)
@@ -13,50 +15,57 @@ wildcards = (function(){
     return items[Math.floor(Math.random()*items.length)];
   };
 
-  for (const wildcard in wildcards) { var direction = getItem(Object.keys(symbols)); //random direction
-    
-    log(wildcard + ': ' + symbols[direction]);
+  for (const wildcard in wildcards) { //log(wildcard + ': ' + emojis[direction]);
 
-    wildcards[wildcard] = symbols[direction]; delete symbols[direction]; //set wildcards
+    log('wildcard: ' + wildcard);
 
-  }; return wildcards;
+    switch (wildcard) {
+      case 'A':
+        //
+        if ( Math.floor(Math.random()*1) === 1) {
+          //
+          wildcards[wildcard] = symbols[getItem(Object.keys(symbols))]; break;
+        };
+
+      default:
+        //set wildcards
+        direction = getItem(Object.keys(emojis)); log(direction)
+
+        wildcards[wildcard] = emojis[direction]; delete emojis[direction];
+    };
+
+  };
+  
+  return wildcards;
 })();
 
 //maps
 const maps = [];
 
 maps.push(`
-IXXXXXXXXX
--XXXXXXXXX
--XXXXXXXXX
--XXXXXXXXX
--XXXXXXXXX
--XXXXXXXXX
--XXXXXXXXX
--XXXXXXXXX
--XXXXXXXXX
-OXXXXXXXXX`);
+X---X
+-X-X-
+--A--
+-----
+-----`);
 
 maps.push(`
-O--XXXXXXX
-X--XXXXXXX
-XX----XXXX
-X--XX-XXXX
-X-XXX--XXX
-X-XXXX-XXX
-XX--XX--XX
-XX--XXX-XX
-XXXX---IXX
-XXXXXXXXXX`);
+----X
+---X-
+--A--
+---X-
+----X`);
 
 maps.push(`
-I-----XXXX
-XXXXX-XXXX
-XX----XXXX
-XX-XXXXXXX
-XX-----XXX
-XXXXXX-XXX
-XX-----XXX
-XX-XXXXXXX
-XX-----OXX
-XXXXXXXXXX`);
+-----
+-----
+--A--
+-X-X-
+X---X`);
+
+maps.push(`
+X----
+-X---
+--A--
+-X---
+X----`);
