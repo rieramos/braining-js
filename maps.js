@@ -12,9 +12,9 @@ wildcards = (function(){
   let wildcards = { 'X':'', 'A':'', };
 
   //funcs
-  function getItem(items) { log('directions avalaibles: ' + items)
-  
-    return items[Math.floor(Math.random()*items.length)];
+  function getItem(items) { element = items[Math.floor(Math.random()*items.length)];
+
+    log('directions: ' + element); return element
   };
 
   for (const wildcard in wildcards) {
