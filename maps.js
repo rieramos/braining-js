@@ -5,20 +5,12 @@ function warn(message) { debug && console.warn("[braining][maps] " + message); }
 
 const symbols = { 'up': '⬆️', 'right': '➡️', 'down': '⬇️', 'left': '⬅️', };
 
-wildcards = (function(){
-
-  //vars
-  const emojis = { ...symbols };
-  let wildcards = { 'X':'', 'A':'', };
+wildcards = (function(){ const emojis = { ...symbols }; let wildcards = { 'X':'', 'A':'', }; //vars
 
   //funcs
-  function getItem(items) { element = items[Math.floor(Math.random()*items.length)];
-
-    log('directions: ' + element); return element
-  };
+  function getItem(items) { element = items[Math.floor(Math.random()*items.length)]; log('directions: ' + element); return element };
 
   for (const wildcard in wildcards) {
-
     switch (wildcard) {
       case 'A':
         //chooose a posible repeat option or, a new (just to get it some randomness)
@@ -28,13 +20,12 @@ wildcards = (function(){
         //set wildcards
         direction = getItem(Object.keys(emojis));
         wildcards[wildcard] = emojis[direction]; delete emojis[direction];
-
     };
 
   }; return wildcards;
 })();
 
-//maps
+                                                      //maps
 const maps = [];
 
 maps.push(`

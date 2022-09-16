@@ -20,10 +20,8 @@ window.addEventListener('load', main); window.addEventListener('resize', main);
 
 //usage: canvasInterface
 function canvasInterface(){
-
     //usage: canvaSize
     function canvaSize(){
-
         const size = (function(){ let height = window.innerHeight; let width = window.innerWidth;
             
             return height < width ? (height * 0.8) : (width * 0.8);
@@ -32,10 +30,7 @@ function canvasInterface(){
         
         canvas.setAttribute('width',size); canvas.setAttribute('height',size); return size
 
-    };
-    
-    //temporary cells box n
-    let difficulty = 5;
+    }; let difficulty = 5 //temporary cells box n
     
     const element = canvaSize() / difficulty; log('icons size: ' + element + 'px');
 
@@ -52,15 +47,14 @@ function canvasInterface(){
         };
 
         map.forEach((n, x) => {
-            n.forEach((symbol, y) => { item=wildcards[symbol];
-
-                if (typeof item === 'undefined') { item = ' '; };
+            n.forEach((symbol, y) => { item=wildcards[symbol]; if (typeof item === 'undefined') { item = ' '; };
 
                 game.fillText(item,
-                                [element * (y + 1)],
-                                [element * (x + 1)]) 
+                              [element * (y + 1)],
+                              [element * (x + 1)]) 
             });
         })
+
     }; assignIcons(1);
 };
 
