@@ -3,7 +3,7 @@ const debug = true;
 function log(message) { debug && console.log("[braining][maps] " + message); }
 function warn(message) { debug && console.warn("[braining][maps] " + message); }
 
-const symbols = { '37': '⬅️', '38': '⬆️', '39': '➡️', '40': '⬇️', };
+const symbols = { 37: '⬅️', 38: '⬆️', 39: '➡️', 40: '⬇️', };
 
 wildcards = (function(){ const emojis = { ...symbols }; let wildcards = { 'X':'', 'A':'', }; //vars
   //funcs

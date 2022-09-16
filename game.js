@@ -18,6 +18,8 @@ canvas = document.querySelector('#game'); game = canvas.getContext('2d');
 //events
 window.addEventListener('load', main); window.addEventListener('resize', main);
 
+function verifiedKey(keyID){log(keyID); (+keyID === +wildcards['A']) ? console.log('+') : console.log('-'); main()};
+
 //usage: canvasInterface
 function canvasInterface(){
     //usage: canvaSize
@@ -43,7 +45,7 @@ function canvasInterface(){
 
         if (debug) {
             for (let i = 0; i < difficulty; ++i) { const arr = map[i]; log('map[' + i + ']: ' + arr) }
-            for (const wildcard in wildcards) { log('wildcards[' + wildcard + ']: ' + wildcards['X']) }; log("wildcards[-]: ")
+            for (const wildcard in wildcards) { log('wildcards[' + wildcard + ']: ' + wildcards[wildcard]) }; log("wildcards[-]: ")
         };
 
         map.forEach((n, x) => {
@@ -57,11 +59,10 @@ function canvasInterface(){
     }; assignIcons(Math.floor(Math.random()*maps.length));
 };
 
-function main() { 
+function main() { console.clear()
     canvasInterface();
     //other
 };
 
-document.addEventListener("keydown", function( event ) {
-    log( event.type + ": " +  event.which );
+document.addEventListener("keydown", function( event ) { verifiedKey(event.which); //let key = event.which
 });
