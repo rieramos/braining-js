@@ -19,25 +19,13 @@ body {
   width: 100vw;
 }
 
-#lives {
-  float: left;
-}
+#lives { float: left; }
+#score { float: right;}
 
-#time {
-  float: right;
-}
-
-.info, .results {
-  width: 99%;
-  border-radius: 4px;
-  border: 1px solid white;
-}
-
-p {
+.info {
+  width: 98%;
   margin: 0 auto;
+  /* border: 1px solid white; */
 }
 
-@media (max-width: 440px) {
-  button { margin-top: 5px; }
-  #up, #down { margin-left: 100%; margin-right: 100%; }
-}
+p { margin: 0 auto; }

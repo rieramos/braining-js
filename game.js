@@ -41,7 +41,7 @@ function canvasInterface(){
 
     }; let difficulty = 5 //temporary cells box n
     
-    const size = Math.floor(canvaSize() / difficulty) - 2; log('icons size: ' + size + 'px');
+    const size = Math.floor(canvaSize() / difficulty) - 3; log('icons size: ' + size + 'px');
 
     game.font = size + 'px Verdana' ; game.textAlign = 'end';
 
