@@ -1,5 +1,6 @@
 //vars
-const debug = true; const emojis = { 37: '⬅️', 38: '⬆️', 39: '➡️', 40: '⬇️', }; const maps = [];
+const debug = { main: false, game: true }
+const emojis = { 37: '⬅️', 38: '⬆️', 39: '➡️', 40: '⬇️' }; const maps = [];
 
                                                       //maps
 maps.push(`

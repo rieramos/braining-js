@@ -10,7 +10,11 @@ From: Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play S
 
 let wildcards = { 'A':'', 'X':'', }
 
-function log(message) { debug && console.log("[braining][main] " + message); }
+function log(message, section) { debug[section] === undefined && (section = 'main');
+
+    debug[section] === true && (console.log("[braining][main] " + message));
+}
+
 function warn(message) { debug && console.warn("[braining][main] " + message); }
 
 //vars
@@ -66,7 +70,7 @@ function setWildcards(){ let directions = [ 37, 38, 39, 40 ]
 
     for (const wildcard in wildcards) {
 
-        wildcards[wildcard] = (function(){ log('directions: ' + directions)
+        wildcards[wildcard] = (function(){ log('directions: ' + directions, 'game')
 
             direction = directions[Math.floor(Math.random()*directions.length)];
 
@@ -80,7 +84,7 @@ function setWildcards(){ let directions = [ 37, 38, 39, 40 ]
             }; return direction
         })();
     }
-}; function main() { console.clear(); setWildcards(); canvasInterface() };
+}; function main() { setWildcards(); canvasInterface() };
 
 document.addEventListener("keydown", function( event ) { verifiedKey(event.which); //let key = event.which
 });
