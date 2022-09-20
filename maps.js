@@ -1,8 +1,13 @@
 //vars
-const maps = [];
 const debug = { main: false, game: true }
-const emojis = { 37: '←', 38: '↑', 39: '→', 40: '↓', 3740: '↙', 3738: '↖', 3938: '↗', 3940: '↘'};
+
+const arrows = { 37: '←', 38: '↑', 39: '→', 40: '↓'};
+const arrows_two = {3737:'↞',3838:'↟',3939:'↠',4040:'↡'};
+const arrows_spec = {3738:'⤴', 3739:'↔', 3740:'⤵', 3837:'↖', 3839:'↗', 3840:'↕', 4037: '↙', 4039: '↘'}
+
                                                       //maps
+const maps = [];
+
 maps.push(`
 X---X
 -X-X-

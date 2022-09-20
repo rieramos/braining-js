@@ -69,7 +69,16 @@ function canvasInterface(){
         };
 
         map.forEach((n, x) => {
-            n.forEach((symbol, y) => { item=emojis[wildcards[symbol]]
+            n.forEach((symbol, y) => {
+
+                item=(function(){ n = wildcards[symbol];
+
+                    if (String(n).length === 4){
+
+                        return (n.slice(0,2) === n.slice(2,5)) ? arrows_two[n]: arrows_spec[n];
+
+                    } else{ return arrows[n] };
+                })();
 
                 typeof item === 'undefined' && ( item = ' ');
 
@@ -79,7 +88,17 @@ function canvasInterface(){
     }; assignIcons(Math.floor(Math.random()*maps.length));
 };
 
-function setWildcards(){ let directions = Object.keys(emojis);
+function setWildcards(){
+    
+    let directions = (function(){ dict = Object.keys(arrows)
+
+        switch(Math.floor(Math.random() * 3)){
+            case 0:     break;
+            case 2:     dict = dict.concat(Object.keys(arrows_spec))
+            default:    dict = dict.concat(Object.keys(arrows_two))
+
+        }; return dict
+    })();
 
     for (const wildcard in wildcards) {
 
