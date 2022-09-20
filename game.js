@@ -8,7 +8,7 @@ attention to details, speed, and ability to ignore competing information
 From: Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play Store. https://play.google.com/store/apps/details?id=mindware.mindgames
 */
 
-let wildcards = { 'X':'', 'A':'', }
+let wildcards = { 'A':'', 'X':'', }
 
 function log(message) { debug && console.log("[braining][main] " + message); }
 function warn(message) { debug && console.warn("[braining][main] " + message); }
@@ -70,16 +70,16 @@ function setWildcards(){ let directions = [ 37, 38, 39, 40 ]
 
             direction = directions[Math.floor(Math.random()*directions.length)];
 
-            switch (wildcard) {
+            switch (wildcard == 'A' ? Math.floor(Math.random() * 2) : 0) {
 
-                case 'A': if (Math.floor(Math.random()*1) === 1) { break }; //choose posible a repeat option or, a new (just to get it some randomness)
+                //choose posible a repeat option or, a new (just to get it some randomness)
+                case 1: break;
 
                 default: { index=directions.indexOf(direction); (index !== -1) && directions.splice(index, 1) };
 
-            };return direction
+            }; return direction
         })();
     }
-
 }; function main() { console.clear(); setWildcards(); canvasInterface() };
 
 document.addEventListener("keydown", function( event ) { verifiedKey(event.which); //let key = event.which
