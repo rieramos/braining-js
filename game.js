@@ -29,11 +29,11 @@ function verifiedKey(keyID){log(keyID); (+keyID === +wildcards['A']) ? main() : 
 function canvasInterface(){
 
     //usage: canvaSize
-    function canvaSize(){
+    function canvaSize(){ measure = 0.8;
 
         const element = (function(){ let height = window.innerHeight; let width = window.innerWidth;
             
-            return height < width ? (height * 0.8) : (width * 0.8);
+            return height < width ? (height * measure) : (width * measure);
 
         })(); log('canvas element: ' + Math.floor(element));
         
@@ -41,7 +41,7 @@ function canvasInterface(){
 
     }; let difficulty = 5 //temporary cells box n
     
-    const size = canvaSize() / difficulty; log('icons size: ' + size + 'px');
+    const size = Math.floor(canvaSize() / difficulty) - 2; log('icons size: ' + size + 'px');
 
     game.font = size + 'px Verdana' ; game.textAlign = 'end';
 
