@@ -26,17 +26,14 @@ window.addEventListener('load', main); window.addEventListener('resize', main);
 
 function verifiedKey(id){
 
-    if( id != undefined && id >= 37 && id <= 40 ){
+    if (String(wildcards['A']).length === 4){ keyID = keyID + '' + id;
 
-        if (String(wildcards['A']).length === 4){ keyID = keyID + '' + id;
+        if (String(keyID).length < 4) {return}
 
-            if (String(keyID).length < 4) {return}
+    }else { keyID = id }
 
-        }else { keyID = id }; log(keyID,'game');
-
-        (+wildcards['A'] === +wildcards['X']) ? (keyID != wildcards['A'] && main())
-                                            : (+keyID === +wildcards['A'] && main()); keyID = ''
-    };
+    (+wildcards['A'] === +wildcards['X']) ? (keyID != wildcards['A'] && main())
+                                        : (+keyID === +wildcards['A'] && main()); keyID = ''
 };
 
 //usage: canvasInterface
@@ -100,7 +97,11 @@ function setWildcards(){ let directions = Object.keys(emojis);
             }; return direction
         })();
     }
-}; function main() { setWildcards(); canvasInterface() };
+}; function main() { log('-','game'); setWildcards(); canvasInterface() };
 
-document.addEventListener("keydown", function( event ) { verifiedKey(event.which); //let key = event.which
+document.addEventListener("keydown", function(event) { id = event.which
+
+    log('answer: ' + id,'game');
+
+    if(+id === 27){log('keyID erased','game'); keyID=''} else if(+id >= 37 && +id <= 40){verifiedKey(id)}
 });
