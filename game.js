@@ -24,16 +24,28 @@ canvas = document.querySelector('#game'); game = canvas.getContext('2d');
 //events
 window.addEventListener('load', main); window.addEventListener('resize', main);
 
-function verifiedKey(id){
+function verifiedKey(id){ a = wildcards['A'];
 
-    if (String(wildcards['A']).length === 4){ keyID = keyID + '' + id;
+    if (String(a).length === 4){ keyID = keyID + '' + id;
 
-        if (String(keyID).length < 4) {return}
+        switch(a.slice(0,2)){
 
-    }else { keyID = id }
+            case (String(a.slice(2,5) - 2)): a.includes(id) && (keyID = a); break
 
-    (+wildcards['A'] === +wildcards['X']) ? (keyID != wildcards['A'] && main())
-                                        : (+keyID === +wildcards['A'] && main()); keyID = ''
+            case (String(a.slice(0,2))): if(String(keyID).length < 4){ return };
+
+            case (String(a.slice(2,5))):
+                wildcards['X'] = (function(){ x = wildcards['X'];
+
+                    if((String(x).length === 2) && a.includes(x)){ return a } else{ return x };
+
+                })(); break
+            ;
+        }
+    } else { keyID = id };
+
+    (a.includes(wildcards['X'])) ? (keyID != a && main())
+                                 : (+keyID === +a && main()); keyID = ''
 };
 
 //usage: canvasInterface
@@ -43,7 +55,7 @@ function canvasInterface(){
     function canvaSize(){ measure = 0.8;
 
         const element = (function(){ let height = window.innerHeight; let width = window.innerWidth;
-            
+
             return height < width ? (height * measure) : (width * measure);
 
         })(); log('canvas element: ' + Math.floor(element));
@@ -89,7 +101,7 @@ function canvasInterface(){
 };
 
 function setWildcards(){
-    
+
     let directions = (function(){ dict = Object.keys(arrows)
 
         switch(Math.floor(Math.random() * 3)){
