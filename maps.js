@@ -1,40 +1,11 @@
-const debug = true;
+//vars
+const debug = { main: false, game: true }
 
-function log(message) { debug && console.log("[braining][maps] " + message); }
-function warn(message) { debug && console.warn("[braining][maps] " + message); }
+const arrows = { 37: '←', 38: '↑', 39: '→', 40: '↓'};
+const arrows_two = {3737:'↞',3838:'↟',3939:'↠',4040:'↡'};
+const arrows_spec = {3738:'⤴', 3739:'↔', 3740:'⤵', 3837:'↖', 3839:'↗', 3840:'↕', 4037: '↙', 4039: '↘'}
 
-const symbols = { 'up': '⬆️', 'right': '➡️', 'down': '⬇️', 'left': '⬅️', };
-
-wildcards = (function(){
-
-  //vars
-  const emojis = { ...symbols };
-  let wildcards = { 'X':'', 'A':'', };
-
-  //funcs
-  function getItem(items) { log('directions avalaibles: ' + items)
-  
-    return items[Math.floor(Math.random()*items.length)];
-  };
-
-  for (const wildcard in wildcards) {
-
-    switch (wildcard) {
-      case 'A':
-        //chooose a posible repeat option or, a new (just to get it some randomness)
-        if ( Math.floor(Math.random()*1) === 1) { wildcards[wildcard] = symbols[getItem(Object.keys(symbols))]; break };
-
-      default:
-        //set wildcards
-        direction = getItem(Object.keys(emojis));
-        wildcards[wildcard] = emojis[direction]; delete emojis[direction];
-
-    };
-
-  }; return wildcards;
-})();
-
-//maps
+                                                      //maps
 const maps = [];
 
 maps.push(`
@@ -64,3 +35,17 @@ X----
 --A--
 -X---
 X----`);
+
+maps.push(`
+----X
+---X-
+--A--
+-X---
+X----`);
+
+maps.push(`
+X----
+-X---
+--A--
+---X-
+----X`);
