@@ -207,10 +207,25 @@ function verified_(id){ let reset = () => { console.clear(); keyID = id; main() 
         else{return Array.from(arrows.keys())}
     }
 
+    function check_directions(){
+
+        directions = [38,40].some(function (n) {
+
+            if (n === char.get('s')[0]){
+
+                if (parallels[1]){ return (char.get('s')).concat([(n - 1)]) }else {return [(n - 1),(char.get('s')[0])]};
+            }
+        })
+
+        if(directions.length === 0){ if(parallels[1]){return char.get('s')} else{return [(char.get('s')[0])]}
+
+        }else {return directions}
+    }
+
     function verified(c){
 
         //are going to the same address?
-        if( parallels[1] ? (char.get('s')).includes(char.get('c')[0]) : (char.get('c')[0] === char.get('s')[0])){
+        if((check_directions()).includes(char.get('c')[0])){
 
             if(id.slice(0,2) != char.get('c')[0]){
                 
