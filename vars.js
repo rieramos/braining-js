@@ -1,7 +1,11 @@
+let char = new Map()
+
 const debug = new Map([
     ['game', true],
-    ['main', false]
+    ['main', true]
 ]);
+
+function log(message, section) { debug.get(section) && (console.log("[braining][" + String(section) + '] ' + message))}
 
 // there are two types of simple challenges: those with a single keystroke and those with two keystrokes
 // first two digits indicate the direction
