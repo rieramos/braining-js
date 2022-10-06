@@ -14,9 +14,14 @@ attention to details, speed, and ability to ignore competing information
 Resource: Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play Store. https://play.google.com/store/apps/details?id=mindware.mindgames
 */
 
-let keyID = ''
-let parallels = [];
+function sum_points(){
+    console.log("SumPoints");
+}
 
+/**/
+
+let keyID = ''
+let parallels = []
 let reset = () => { cleanKeyID(keyID); main() }
 
 function cleanKeyID(id){
@@ -93,7 +98,7 @@ function vertical_direction_conversor(n){ n = +n
 
 function verified_keystroke(c){
 
-    if(are_identical() && !are_identical(c) && !vertical_direction_conversor(+c.slice(0,2))){ reset() } else
+    if(are_identical() && !are_identical(c) && !vertical_direction_conversor(+c.slice(0,2))){ sum_points() } else
 
 
     /*two-keystroke challenge type, always need the first common direction/anchor
@@ -114,14 +119,14 @@ function verified_keystroke(c){
                                    //check if double
                 ((parallels[0] || (char.get('c')[0] === char.get('c')[1]))
                     ? true
-                    : (c.slice(2) === String(char.get('c')[1]))) && reset()
+                    : (c.slice(2) === String(char.get('c')[1]))) && sum_points()
                 ;
-            } else{reset()}
+            } else{sum_points()}
         }
-    } else if(are_identical(c)){ reset() }
+    } else if(are_identical(c)){ sum_points() }
 };
 
-function main_game(id){
+function StartGame(id){
 
     /*the central arrow isn't a 'normal' (one keystroke) challenge?
     eg. wilcards.get('c') = [37, 37] (3737, in theory) = '↞'*/
@@ -145,17 +150,19 @@ function main_game(id){
                 - else, that means those do not point directly or indirectly (see function 'vertical_direction_converter') to
                 the identical direction, so it can be any other than those.*/
 
-                (parallels[1] ? !are_identical() : !vertical_direction_conversor(id)) && reset()
+                (parallels[1] ? !are_identical() : !vertical_direction_conversor(id)) && sum_points()
 
             // else, must be identical
 
-            } else if( are_identical() ){ reset() }; keyID != '' && cleanKeyID(); return
+            } else if( are_identical() ){ sum_points() }; keyID != '' && cleanKeyID(); return
         }
     }
 
     if(char.get('c')[1] ? keyID.length === 4 : true){ keyID != '' && (id = keyID);
 
         (are_identical(char.get('s').join(''),true) || get_c_arrow_set().includes(id)) && verified_keystroke(id);
+
+        reset()
 
         keyID != '' && cleanKeyID()
     }
@@ -167,6 +174,6 @@ document.addEventListener("keydown", function(event) { n = event.which
 
     if(n === 27){cleanKeyID()} else{ log('answer: ' + n,'game')
     
-        if(n >= 37 && n <= 40){ parallels = check_parallels([]); main_game(String(n))}
+        if(n >= 37 && n <= 40){ parallels = check_parallels([]); StartGame(String(n))}
     }
 })
