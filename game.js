@@ -11,18 +11,27 @@ there are two types of simple challenges: those with a single keystroke and thos
 skills
 attention to details, speed, and ability to ignore competing information
 
-Resource: Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play Store. https://play.google.com/store/apps/details?id=mindware.mindgames
+bibliography: Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play Store. https://play.google.com/store/apps/details?id=mindware.mindgames
 */
 
-function sum_points(){
-    console.log("SumPoints");
+let lives = 1; let points
+
+let showLives = () => { lives = lives - 1
+    
+    if(lives === 0){ lives = 3; points = [] }
+
+    spanLives.innerHTML = '❤️'.repeat(lives)
+
+}; showLives()
+
+function sum_items(){ lives = lives + 1
+
 }
 
 /**/
 
 let keyID = ''
 let parallels = []
-let reset = () => { cleanKeyID(keyID); main() }
 
 function cleanKeyID(id){
     
@@ -98,7 +107,7 @@ function vertical_direction_conversor(n){ n = +n
 
 function verified_keystroke(c){
 
-    if(are_identical() && !are_identical(c) && !vertical_direction_conversor(+c.slice(0,2))){ sum_points() } else
+    if(are_identical() && !are_identical(c) && !vertical_direction_conversor(+c.slice(0,2))){ sum_items() } else
 
 
     /*two-keystroke challenge type, always need the first common direction/anchor
@@ -119,14 +128,14 @@ function verified_keystroke(c){
                                    //check if double
                 ((parallels[0] || (char.get('c')[0] === char.get('c')[1]))
                     ? true
-                    : (c.slice(2) === String(char.get('c')[1]))) && sum_points()
+                    : (c.slice(2) === String(char.get('c')[1]))) && sum_items()
                 ;
-            } else{sum_points()}
+            } else{sum_items()}
         }
-    } else if(are_identical(c)){ sum_points() }
+    } else if(are_identical(c)){ sum_items() }
 };
 
-function StartGame(id){
+function StartGame(id){ let reset = () => { showLives(); cleanKeyID(keyID); main(); };
 
     /*the central arrow isn't a 'normal' (one keystroke) challenge?
     eg. wilcards.get('c') = [37, 37] (3737, in theory) = '↞'*/
@@ -150,11 +159,13 @@ function StartGame(id){
                 - else, that means those do not point directly or indirectly (see function 'vertical_direction_converter') to
                 the identical direction, so it can be any other than those.*/
 
-                (parallels[1] ? !are_identical() : !vertical_direction_conversor(id)) && sum_points()
+                (parallels[1] ? !are_identical() : !vertical_direction_conversor(id)) && sum_items()
 
             // else, must be identical
 
-            } else if( are_identical() ){ sum_points() }; keyID != '' && cleanKeyID(); return
+            } else if( are_identical() ){ sum_items() }; keyID != '' && cleanKeyID();
+            
+            reset(); return
         }
     }
 

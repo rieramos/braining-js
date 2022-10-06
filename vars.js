@@ -5,6 +5,8 @@ const debug = new Map([
     ['main', false]
 ]);
 
+const spanLives = document.querySelector('#lives');
+
 function log(message, section) { debug.get(section) && (console.log("[braining][" + String(section) + '] ' + message))}
 
 // there are two types of simple challenges: those with a single keystroke and those with two keystrokes
