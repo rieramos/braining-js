@@ -2,7 +2,7 @@ let char = new Map()
 
 const debug = new Map([
     ['game', true],
-    ['main', true]
+    ['main', false]
 ]);
 
 function log(message, section) { debug.get(section) && (console.log("[braining][" + String(section) + '] ' + message))}

@@ -1,6 +1,10 @@
 /*
 how to
-tap the button pointing the same direction as the row in the center of screen. ignore the other arrows
+- if all the arrows are the same, then choose a different one in repertory
+
+- if the middle one is different, follow your heart... xD nah, the direction of that arrow
+
+there are two types of simple challenges: those with a single keystroke and those with two keystrokes
 
 there are two types of simple challenges: those with a single keystroke and those with two keystrokes
 
@@ -17,7 +21,7 @@ let reset = () => { cleanKeyID(keyID); main() }
 
 function cleanKeyID(id){
     
-    log('keyID "' + String((typeof id === 'undefined') ? keyID : id) + '" erased','game')
+    log('keyID "' + String((typeof id === 'undefined') ? keyID : id) + '" erased','main')
     
     console.log('-'); keyID = ''
 }
@@ -26,18 +30,23 @@ let are_identical = (value, not_compare) => { typeof value === 'undefined' && (v
 
     c = (char.get('c')).join('');
 
+    //check for exceptional checks, when the surrounding arrows are vertical and, therefore, also represent a vertical direction
     if ((Array.from(arrows.keys()).includes(c) && c.length === 4) && (parallels[1] && char.get('s')[0] === 37)){
     
-        console.log('a'); return true
+        return true
 
     } else if(['3837','4037'].includes(c) && (parallels[1] && char.get('s')[0] === 38)){
 
-        console.log('b'); return true
-
-    }; if(!not_compare){ return String(value) === c } else{ return false}
+        return true
+        
+    //normal comprobation
+    }; if(!not_compare){ return String(value) === c } else{ return false }
 }
 
 let check_parallels = (arr) => { const map = char.values()
+
+    /*if the second ID of challenge is greater than the first by 2, it means that it is an arrow w
+    opposite poles towards the identical axis {↕,↔}*/
 
     for (i=0; i < char.size; i++ ) { let value = map.next().value
     
@@ -46,7 +55,7 @@ let check_parallels = (arr) => { const map = char.values()
     }; return arr
 }
 
-let getArr = () =>{ key = String(char.get('c').join(''));
+let get_c_arrow_set = () =>{ key = String(char.get('c').join(''));
 
     if(Array.from(arrows_special.keys()).includes(key)){ return Array.from(arrows_special.keys())} // no-break to add 'arrows_double' too (2x1)
 
@@ -55,31 +64,54 @@ let getArr = () =>{ key = String(char.get('c').join(''));
     else{return Array.from(arrows.keys())}
 }
 
-function contains_direction(n){ n = +n
 
-    let directions = (arr) => { actualMainDirection = char.get('s')[0];
+/*function in charge of checking the statements below*/
+function vertical_direction_conversor(n){ n = +n
+
+    /*- an arrow pointing up (38) is also like one pointing to the left
+
+    - an arrow pointing down (40) is also like one pointing to the right
+
+    it's like the 'correspondence principle' or, 'schrodinger cat' but w directions lol*/
+
+    let directions = (arr) => { sample_direction = char.get('s')[0];
   
-      if(arr.some(function (i) {return i === actualMainDirection})){
+        //do the surrounding arrows contain a vertical direction?
+        if(arr.some(function (i) {return i === sample_direction})){
+    
+            // are these parallel? if it is, dont do the conversion
+            if(parallels[1]){ return (char.get('s'))
+            /*else, the corresponding address to x vertical direction is obtained simply by subtracting, resulting in a
+            horizontal direction ID*/
+            } else { return [(sample_direction - 1),sample_direction] }
+    
+        //else, likewise, if these aren't parallel, return the unique direction
+        } else{ if(parallels[1]){return char.get('s')} else{return [sample_direction]} }
   
-        if(parallels[1]){ return (char.get('s'))
-        
-        } else { return [(actualMainDirection - 1),actualMainDirection] }
-  
-      } else{ if(parallels[1]){return char.get('s')} else{return [actualMainDirection]} }
-  
-    }; console.log(directions([38,40])); return (directions([38,40]).includes(n))
+    }; return (directions([38,40]).includes(n))
 };
 
-function verified(c){
+function verified_keystroke(c){
 
-    if(are_identical() && !are_identical(c) && !contains_direction(+c.slice(0,2))){ reset() } else
+    if(are_identical() && !are_identical(c) && !vertical_direction_conversor(+c.slice(0,2))){ reset() } else
 
-    if(contains_direction(char.get('c')[0])){
 
-        if(!contains_direction(+c.slice(0,2))){
-            //if they are the same, simply choose a different
+    /*two-keystroke challenge type, always need the first common direction/anchor
+    
+    unless, depending on the challenge
+
+        - one-keystroke
+        - they are identical
+        - no alternative vertical/horizontal option possible
+    */
+
+    if(vertical_direction_conversor(char.get('c')[0])){
+
+        if(!vertical_direction_conversor(+c.slice(0,2))){
+            //if they are the identical, simply choose a different
             if(char.get('c')[1] && !are_identical()){
                 
+                                   //check if double
                 ((parallels[0] || (char.get('c')[0] === char.get('c')[1]))
                     ? true
                     : (c.slice(2) === String(char.get('c')[1]))) && reset()
@@ -91,40 +123,39 @@ function verified(c){
 
 function main_game(id){
 
-    ///isn't a 'normal' (one keystroke) challenge? / it's a double keystroke challenge?
-    //eg. wilcards.get('c') = (3737 = [37, 37]) = '↞'
+    /*the central arrow isn't a 'normal' (one keystroke) challenge?
+    eg. wilcards.get('c') = [37, 37] (3737, in theory) = '↞'*/
 
     if (char.get('c')[1]){ keyID = keyID + '' + id
-        /*if the second ID of challenge is greater than the first by 2, it means that it is an arrow w
-        opposite poles towards the same axis {↕,↔}.
-        
-        so if the keystroke ID is one of the directions to which the arrow of the '(c)entral' challenge key points,
-        it will be correct and, in this sense, to supplant it identically by the preferred random address that
-        initially chosen to be answer in case of.
-        
-        all of this it was already verified, so yeeeet, just for a 'quckly' yes-or-yes check pass result hereinafter*/
 
-        if(parallels[0]){ log('it is parallel arrow?','game')
+        //its a parallel arrow ({↕,↔})?
+
+        if(parallels[0]){
+
+            //if the keystroke ID is one of the directions to which the arrow of the '(c)entral' challenge key points
 
             if ((char.get('c')).includes(+id)){
-                
-                (parallels[1] ? !are_identical() : !contains_direction(id)) && reset()
+
+                /*the only ways for the answer to be correct, are
+
+                are the surrounding arrows parallel?
+
+                - if, it should not be equal to those
+
+                - else, that means those do not point directly or indirectly (see function 'vertical_direction_converter') to
+                the identical direction, so it can be any other than those.*/
+
+                (parallels[1] ? !are_identical() : !vertical_direction_conversor(id)) && reset()
+
+            // else, must be identical
 
             } else if( are_identical() ){ reset() }; keyID != '' && cleanKeyID(); return
-
-        /*a 'covert' default case, for those challenges that do not fall into the previous case and, therefore,
-        requires necessary two keystrokes for its analysis*/
-
-        //double challenge keyID arrows area
         }
     }
 
-    /*in any case (one-keystroke or, two-keystroke challenge type), always need a common direction ('first anchor')
-    one-keystroke are the exception
-    */
     if(char.get('c')[1] ? keyID.length === 4 : true){ keyID != '' && (id = keyID);
 
-        (are_identical(char.get('s').join(''),true) || getArr().includes(id)) && verified(id);
+        (are_identical(char.get('s').join(''),true) || get_c_arrow_set().includes(id)) && verified_keystroke(id);
 
         keyID != '' && cleanKeyID()
     }

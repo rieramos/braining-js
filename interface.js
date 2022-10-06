@@ -1,15 +1,3 @@
-/*
-how to
-tap the button pointing the same direction as the row in the center of screen. ignore the other arrows
-
-there are two types of simple challenges: those with a single keystroke and those with two keystrokes
-
-skills
-attention to details, speed, and ability to ignore competing information
-
-Resource: Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play Store. https://play.google.com/store/apps/details?id=mindware.mindgames
-*/
-
 let size
 let map_n
 let difficulty = 5 //temporary cells box n
@@ -95,15 +83,18 @@ function characters_(type){ game.clearRect(0, 0, canvas.width, canvas.height);
                            .map(string=>string.split(""));
 
     //each wildcard {c,o} value
-    if (debug.get('main') && type != 'resize') { Array.from(char).map(([key, value]) => (log('char[' + key + ']: ' + value, 'main')));
-
-        //for (let i = 0; i < difficulty; ++i) { const arrows_ids_itemized = map[i]; log('map[' + i + ']: ' + arrows_ids_itemized) }
+    if (debug.get('game') && type != 'resize') {
+        
+        Array.from(char).map(([key, value]) => (
+            
+            console.log('char[' + key + ']: ' + value + ((key === 'c') ? ' (challenge keys)' : '')))
+        );
     }
 
     let item = (arr) => { key = arr.join('') //arr[0]+ '' + ((arr[1]) ? arr[1] : '')
 
-        //check if it's a challenge with double keystroke or, a normal (two length) key and, on this basis select
-        //the corresponding map/object w ascii characters
+        /*check if it's a challenge with double keystroke or, a normal (two length) key and, on this basis select
+        the corresponding map/object w ascii characters*/
         if (key.length === 4){
 
             if(arr[0] === arr[1]){ return arrows_double.get(key) } else
