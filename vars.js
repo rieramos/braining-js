@@ -1,9 +1,20 @@
-let char = new Map()
+let startTime;
+
+// where will arrows directions IDs will be hosted
+let xy = new Map()
 
 const debug = new Map([
     ['game', true],
     ['main', false]
 ]);
+
+//time/intervals area
+
+    const spanTime = document.querySelector('.time_text');
+
+    let showTime = () => { spanTime.innerHTML = (((Date.now() - startTime ) % 60000) / 1000).toFixed(2); }
+
+    const timeInterval = () => setInterval(showTime, 100)
 
 const spanLives = document.querySelector('#lives');
 

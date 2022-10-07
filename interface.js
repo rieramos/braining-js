@@ -71,7 +71,7 @@ function wildcards_(){
     
             return (arr[1]) ? arr : [arr[0]] //check empty string
     
-        }); for (index = 0; index < 2; index++){ char.set((index === 0 ? 'c' : 's'), arr[index]) } //asign to map
+        }); for (index = 0; index < 2; index++){ xy.set((index === 0 ? 'c' : 's'), arr[index]) } //asign to map
 
     }; set(get(keys(Array.from(arrows.keys()))))
 };
@@ -85,9 +85,9 @@ function characters_(type){ game.clearRect(0, 0, canvas.width, canvas.height);
     //each wildcard {c,o} value
     if (debug.get('game') && type != 'resize') {
         
-        Array.from(char).map(([key, value]) => (
+        Array.from(xy).map(([key, value]) => (
             
-            console.log('char[' + key + ']: ' + value + ((key === 'c') ? ' (challenge keys)' : '')))
+            console.log('xy[' + key + ']: ' + value + ((key === 'c') ? ' (challenge keys)' : '')))
         );
     }
 
@@ -106,9 +106,12 @@ function characters_(type){ game.clearRect(0, 0, canvas.width, canvas.height);
 
     map.forEach((n, x) => {
         n.forEach((wildcard, y) => {
-            game.fillText((wildcard === '-') ? ' ' : item(char.get(wildcard)), [size * (y + 1)], [size * (x + 1)]);
+            game.fillText((wildcard === '-') ? ' ' : item(xy.get(wildcard)), [size * (y + 1)], [size * (x + 1)]);
         });
     });
 };
 
-function main() { map_n = Math.floor(Math.random()*maps.length); wildcards_(); characters_() };
+function main() { map_n = Math.floor(Math.random()*maps.length); wildcards_(); characters_()
+
+    clearTimeout(timeInterval); typeof startTime != 'undefined' && (startTime = Date.now())
+};

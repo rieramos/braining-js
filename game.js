@@ -18,15 +18,16 @@ let lives = 1; let points
 
 let showLives = () => { lives = lives - 1
     
-    if(lives === 0){ lives = 3; points = [] }
+    if(lives === 0){ lives = 3; points = []
+    
+        if (typeof startTime != 'undefined'){(startTime = Date.now()); clearTimeout(timeInterval)}
+    }
 
     spanLives.innerHTML = '❤️'.repeat(lives)
 
 }; showLives()
 
-function sum_items(){ lives = lives + 1
-
-}
+let sum_items = () => { lives = lives + 1 }
 
 /**/
 
@@ -40,16 +41,16 @@ function cleanKeyID(id){
     console.log('-'); keyID = ''
 }
 
-let are_identical = (value, not_compare) => { typeof value === 'undefined' && (value = char.get('s').join(''))
+let are_identical = (value, not_compare) => { typeof value === 'undefined' && (value = xy.get('s').join(''))
 
-    c = (char.get('c')).join('');
+    c = (xy.get('c')).join('');
 
     //check for exceptional checks, when the surrounding arrows are vertical and, therefore, also represent a vertical direction
-    if ((Array.from(arrows.keys()).includes(c) && c.length === 4) && (parallels[1] && char.get('s')[0] === 37)){
+    if ((Array.from(arrows.keys()).includes(c) && c.length === 4) && (parallels[1] && xy.get('s')[0] === 37)){
     
         return true
 
-    } else if(['3837','4037'].includes(c) && (parallels[1] && char.get('s')[0] === 38)){
+    } else if(['3837','4037'].includes(c) && (parallels[1] && xy.get('s')[0] === 38)){
 
         return true
         
@@ -57,19 +58,19 @@ let are_identical = (value, not_compare) => { typeof value === 'undefined' && (v
     }; if(!not_compare){ return String(value) === c } else{ return false }
 }
 
-let check_parallels = (arr) => { const map = char.values()
+let check_parallels = (arr) => { const map = xy.values()
 
     /*if the second ID of challenge is greater than the first by 2, it means that it is an arrow w
     opposite poles towards the identical axis {↕,↔}*/
 
-    for (i=0; i < char.size; i++ ) { let value = map.next().value
+    for (i=0; i < xy.size; i++ ) { let value = map.next().value
     
         arr.push(+value[0] === (+value[1] - 2))
 
     }; return arr
 }
 
-let get_c_arrow_set = () =>{ key = String(char.get('c').join(''));
+let get_c_arrow_set = () =>{ key = String(xy.get('c').join(''));
 
     if(Array.from(arrows_special.keys()).includes(key)){ return Array.from(arrows_special.keys())} // no-break to add 'arrows_double' too (2x1)
 
@@ -88,19 +89,19 @@ function vertical_direction_conversor(n){ n = +n
 
     it's like the 'correspondence principle' or, 'schrodinger cat' but w directions lol*/
 
-    let directions = (arr) => { sample_direction = char.get('s')[0];
+    let directions = (arr) => { sample_direction = xy.get('s')[0];
   
         //do the surrounding arrows contain a vertical direction?
         if(arr.some(function (i) {return i === sample_direction})){
     
             // are these parallel? if it is, dont do the conversion
-            if(parallels[1]){ return (char.get('s'))
+            if(parallels[1]){ return (xy.get('s'))
             /*else, the corresponding address to x vertical direction is obtained simply by subtracting, resulting in a
             horizontal direction ID*/
             } else { return [(sample_direction - 1),sample_direction] }
     
         //else, likewise, if these aren't parallel, return the unique direction
-        } else{ if(parallels[1]){return char.get('s')} else{return [sample_direction]} }
+        } else{ if(parallels[1]){return xy.get('s')} else{return [sample_direction]} }
   
     }; return (directions([38,40]).includes(n))
 };
@@ -119,28 +120,35 @@ function verified_keystroke(c){
         - no alternative vertical/horizontal option possible
     */
 
-    if(vertical_direction_conversor(char.get('c')[0])){
+    if(vertical_direction_conversor(xy.get('c')[0])){
 
         if(!vertical_direction_conversor(+c.slice(0,2))){
             //if they are the identical, simply choose a different
-            if(char.get('c')[1] && !are_identical()){
+            if(xy.get('c')[1] && !are_identical()){
                 
                                    //check if double
-                ((parallels[0] || (char.get('c')[0] === char.get('c')[1]))
+                ((parallels[0] || (xy.get('c')[0] === xy.get('c')[1]))
                     ? true
-                    : (c.slice(2) === String(char.get('c')[1]))) && sum_items()
+                    : (c.slice(2) === String(xy.get('c')[1]))) && sum_items()
                 ;
             } else{sum_items()}
         }
     } else if(are_identical(c)){ sum_items() }
 };
 
-function StartGame(id){ let reset = () => { showLives(); cleanKeyID(keyID); main(); };
+function StartGame(id){
+    
+    let reset = () => { cleanKeyID(keyID); main()
+
+        if(typeof startTime === 'undefined'){ startTime = Date.now(); timeInterval() }
+
+        showLives()
+    }
 
     /*the central arrow isn't a 'normal' (one keystroke) challenge?
     eg. wilcards.get('c') = [37, 37] (3737, in theory) = '↞'*/
 
-    if (char.get('c')[1]){ keyID = keyID + '' + id
+    if (xy.get('c')[1]){ keyID = keyID + '' + id
 
         //its a parallel arrow ({↕,↔})?
 
@@ -148,7 +156,7 @@ function StartGame(id){ let reset = () => { showLives(); cleanKeyID(keyID); main
 
             //if the keystroke ID is one of the directions to which the arrow of the '(c)entral' challenge key points
 
-            if ((char.get('c')).includes(+id)){
+            if ((xy.get('c')).includes(+id)){
 
                 /*the only ways for the answer to be correct, are
 
@@ -169,9 +177,9 @@ function StartGame(id){ let reset = () => { showLives(); cleanKeyID(keyID); main
         }
     }
 
-    if(char.get('c')[1] ? keyID.length === 4 : true){ keyID != '' && (id = keyID);
+    if(xy.get('c')[1] ? keyID.length === 4 : true){ keyID != '' && (id = keyID);
 
-        (are_identical(char.get('s').join(''),true) || get_c_arrow_set().includes(id)) && verified_keystroke(id);
+        (are_identical(xy.get('s').join(''),true) || get_c_arrow_set().includes(id)) && verified_keystroke(id);
 
         reset()
 
