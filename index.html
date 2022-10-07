@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script src="./jquery-3.6.1.min.js"></script>
+
   <link rel="stylesheet" href="./style.css">
   <title>braining (js)</title>
 </head>
@@ -14,10 +17,17 @@
       <p id="time">⏰ <span class="pTime">0.00</span></p>
     </div>
     <canvas id="game"></canvas>
+    
+    <div class="alert-box">
+      <div class="alert-box success">good job</div>
+      <div class="alert-box failure">nice try</div>
+    </div>
+    
     <div class="lives"><p class="lives"></p></div>
+
+    <script src="./vars.js"></script>
+    <script src="./interface.js"></script>
+    <script src="./game.js"></script>
   </div>
-  <script src="./vars.js"></script>
-  <script src="./interface.js"></script>
-  <script src="./game.js"></script>
 </body>
 </html>

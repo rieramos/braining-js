@@ -4,7 +4,7 @@
 
 body {
   background-color: indigo;
-  color: #fff;  
+  color: #fff;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0;
   padding: 0;
@@ -39,4 +39,25 @@ p { margin: 0; }
 @media (max-width: 440px) {
   button { margin-top: 5px; }
   #up, #down { margin-left: 100%; margin-right: 100%; }
+}
+
+.alert-box {
+  padding: 30px;
+  position: absolute;
+  margin: 0px 100px 100px 0px;
+  border: 1px solid transparent;
+}
+
+.success {
+  display: none;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.failure {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  display: none;
 }

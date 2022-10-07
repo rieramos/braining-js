@@ -113,7 +113,7 @@ function vertical_direction_conversor(n){ n = +n
     }; return (directions([38,40]).includes(n))
 };
 
-function StartGame(id){ let sum_assets = () => { lives <= 2 && (lives += 2); score += 1 }
+function StartGame(id){ let sum_assets = () => { lives += ((lives === 3) ? 1 : 2); score += 1 }
 
     function verified_keystroke(c){
 

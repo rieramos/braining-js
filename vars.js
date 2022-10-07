@@ -28,8 +28,14 @@ let showTime = () => { ss = (((Date.now() - startTime ) % 60000) / 1000)
 
     if(+ss.toFixed(0) === 30){
 
-        if(score < +(maxScore())){ lives = 1 } else{
+        if(score < +(maxScore())){ lives = 1
+        
+            $( "div.failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+
+        } else{
             
+            $( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+
             lives += 1; localStorage.setItem('maxScore', score)
 
             spanMaxScore.innerHTML = +(maxScore())
