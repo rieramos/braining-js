@@ -20,7 +20,10 @@ let setAssets = () => {
 
     if(lives === 0){ lives = 3; score = 0
     
-        if(typeof startTime != 'undefined'){(startTime = Date.now())}
+        if(typeof startTime != 'undefined'){ startTime = Date.now()
+        
+            $( "div.failure" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 )
+        }
     }
 
     score === 0 && (spanMaxScore.innerHTML = +(maxScore()))

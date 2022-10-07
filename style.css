@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: 'Silkscreen', cursive;
 }
 
 body {
@@ -9,6 +10,8 @@ body {
   margin: 0;
   padding: 0;
 }
+
+h3{ width: 98%; margin: 0; text-align: center;}
 
 .game-container {
   display: flex;
