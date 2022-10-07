@@ -14,20 +14,27 @@ attention to details, speed, and ability to ignore competing information
 bibliography: Consulting Inc, M. (2012). Mind Games (Version 3.4.5) [Mobile App]. Play Store. https://play.google.com/store/apps/details?id=mindware.mindgames
 */
 
-let lives = 1; let points
+let setAssets = () => {
 
-let showLives = () => { lives = lives - 1
+    lives = lives - 1
+
+    if(lives === 0){ lives = 3; score = 0
     
-    if(lives === 0){ lives = 3; points = []
-    
-        if (typeof startTime != 'undefined'){(startTime = Date.now()); clearTimeout(timeInterval)}
+        if(typeof startTime != 'undefined'){(startTime = Date.now())}
     }
 
-    spanLives.innerHTML = '❤️'.repeat(lives)
+    score === 0 && (spanMaxScore.innerHTML = +(maxScore()))
 
-}; showLives()
+    pLives.innerHTML = '❤️'.repeat(lives); spanScores.innerHTML =  score
+    
+}; setAssets()
 
-let sum_items = () => { lives = lives + 1 }
+let reset = () => { cleanKeyID(keyID); main()
+
+    if(typeof startTime === 'undefined'){ startTime = Date.now(); timeInterval() }
+
+    setAssets()
+}
 
 /**/
 
@@ -106,44 +113,37 @@ function vertical_direction_conversor(n){ n = +n
     }; return (directions([38,40]).includes(n))
 };
 
-function verified_keystroke(c){
+function StartGame(id){ let sum_assets = () => { lives <= 2 && (lives += 2); score += 1 }
 
-    if(are_identical() && !are_identical(c) && !vertical_direction_conversor(+c.slice(0,2))){ sum_items() } else
+    function verified_keystroke(c){
 
-
-    /*two-keystroke challenge type, always need the first common direction/anchor
+        if(are_identical() && !are_identical(c) && !vertical_direction_conversor(+c.slice(0,2))){ sum_assets() } else
     
-    unless, depending on the challenge
-
-        - one-keystroke
-        - they are identical
-        - no alternative vertical/horizontal option possible
-    */
-
-    if(vertical_direction_conversor(xy.get('c')[0])){
-
-        if(!vertical_direction_conversor(+c.slice(0,2))){
-            //if they are the identical, simply choose a different
-            if(xy.get('c')[1] && !are_identical()){
-                
-                                   //check if double
-                ((parallels[0] || (xy.get('c')[0] === xy.get('c')[1]))
-                    ? true
-                    : (c.slice(2) === String(xy.get('c')[1]))) && sum_items()
-                ;
-            } else{sum_items()}
-        }
-    } else if(are_identical(c)){ sum_items() }
-};
-
-function StartGame(id){
     
-    let reset = () => { cleanKeyID(keyID); main()
-
-        if(typeof startTime === 'undefined'){ startTime = Date.now(); timeInterval() }
-
-        showLives()
-    }
+        /*two-keystroke challenge type, always need the first common direction/anchor
+        
+        unless, depending on the challenge
+    
+            - one-keystroke
+            - they are identical
+            - no alternative vertical/horizontal option possible
+        */
+    
+        if(vertical_direction_conversor(xy.get('c')[0])){
+    
+            if(!vertical_direction_conversor(+c.slice(0,2))){
+                //if they are the identical, simply choose a different
+                if(xy.get('c')[1] && !are_identical()){
+                    
+                                       //check if double
+                    ((parallels[0] || (xy.get('c')[0] === xy.get('c')[1]))
+                        ? true
+                        : (c.slice(2) === String(xy.get('c')[1]))) && sum_assets()
+                    ;
+                } else{sum_assets()}
+            }
+        } else if(are_identical(c)){ sum_assets() }
+    };
 
     /*the central arrow isn't a 'normal' (one keystroke) challenge?
     eg. wilcards.get('c') = [37, 37] (3737, in theory) = '↞'*/
@@ -167,11 +167,11 @@ function StartGame(id){
                 - else, that means those do not point directly or indirectly (see function 'vertical_direction_converter') to
                 the identical direction, so it can be any other than those.*/
 
-                (parallels[1] ? !are_identical() : !vertical_direction_conversor(id)) && sum_items()
+                (parallels[1] ? !are_identical() : !vertical_direction_conversor(id)) && sum_assets()
 
             // else, must be identical
 
-            } else if( are_identical() ){ sum_items() }; keyID != '' && cleanKeyID();
+            } else if( are_identical() ){ sum_assets() }; keyID != '' && cleanKeyID();
             
             reset(); return
         }

@@ -111,7 +111,4 @@ function characters_(type){ game.clearRect(0, 0, canvas.width, canvas.height);
     });
 };
 
-function main() { map_n = Math.floor(Math.random()*maps.length); wildcards_(); characters_()
-
-    clearTimeout(timeInterval); typeof startTime != 'undefined' && (startTime = Date.now())
-};
+function main() { map_n = Math.floor(Math.random()*maps.length); wildcards_(); characters_(); };

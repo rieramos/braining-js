@@ -1,22 +1,43 @@
-let startTime;
+let score; let startTime; let xy = new Map()
+
+let lives = 1
 
 // where will arrows directions IDs will be hosted
-let xy = new Map()
-
 const debug = new Map([
     ['game', true],
     ['main', false]
 ]);
 
-//time/intervals area
+const pLives = document.querySelector('.lives');
 
-    const spanTime = document.querySelector('.time_text');
+const spanScores = document.querySelector('.pScores');
 
-    let showTime = () => { spanTime.innerHTML = (((Date.now() - startTime ) % 60000) / 1000).toFixed(2); }
+const spanMaxScore = document.querySelector('.pMaxScore');
 
-    const timeInterval = () => setInterval(showTime, 100)
+let maxScore = () => { n = localStorage.getItem('maxScore')
 
-const spanLives = document.querySelector('#lives');
+    return +((n === null) ? 1 : n)
+}
+
+//intervals area
+const spanTime = document.querySelector('.pTime');
+
+let showTime = () => { ss = (((Date.now() - startTime ) % 60000) / 1000)
+    
+    spanTime.innerHTML = ss.toFixed(2)
+
+    if(+ss.toFixed(0) === 30){
+
+        if(score < +(maxScore())){ lives = 1 } else{
+            
+            lives += 1; localStorage.setItem('maxScore', score)
+
+            spanMaxScore.innerHTML = +(maxScore())
+
+        }; score = 0; reset(); startTime = Date.now()
+    }
+
+}; const timeInterval = () => setInterval(showTime, 100)
 
 function log(message, section) { debug.get(section) && (console.log("[braining][" + String(section) + '] ' + message))}
 
