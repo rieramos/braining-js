@@ -3,6 +3,10 @@
   font-family: 'Silkscreen', cursive;
 }
 
+:root{
+  font-size: small;
+}
+
 body {
   background-color: indigo;
   color: #fff;
@@ -22,14 +26,19 @@ h3{ width: 98%; margin: 0; text-align: center;}
   width: 100vw;
 }
 
-.info, .lives {
+.bar {
   width: 98%;
   margin: 0 auto;
   /* border: 1px solid white; */
 }
 
-#time { float: right; }
-#score { float: left;}
+#score { float: left; }
+#time  { float: right; }
+
+#lives { float: left; }
+#reset { float: left; margin-left: 10px; }
+
+#minimalist { float: right; }
 
 canvas {
   border: 4px solid #ff6600;
@@ -40,7 +49,6 @@ canvas {
 p { margin: 0; }
 
 @media (max-width: 440px) {
-  button { margin-top: 5px; }
   #up, #down { margin-left: 100%; margin-right: 100%; }
 }
 

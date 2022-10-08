@@ -5,15 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <script src="./jquery-3.6.1.min.js"></script>
+  <script src="./libraries/lc_switch.min.js"></script>
+  <script src="./libraries/jquery-3.6.1.min.js"></script>
 
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./styles/style.css">
   <title>braining (js)</title>
 </head>
 <body>
   <div class="game-container">
-    <div class="info">
+    <div class="bar top">
       <p id="score">🏁 <span class="pScores">00</span> / <span class="pMaxScore">00</span></p>
+      <button id="reset">reset all</button>
       <p id="time">⏰ <span class="pTime">0.00</span></p>
     </div>
 
@@ -26,7 +28,23 @@
       <div class="alert-box failure">nice try</div>
     </div>
     
-    <div class="lives"><p class="lives"></p></div>
+    <div class="bar bottom">
+      <!-- <button id="reset">reset all</button> -->
+      <p class="lives"></p>
+      <form><input type="checkbox" value="1"/> difficult training mode</form>
+    </div>
+
+   <!-- <script src="lc_switch.min.js" type="text/javascript"></script> -->
+
+    <script type="text/javascript">
+
+      lc_switch('input[type=checkbox], input[type=radio]', {
+        // (string) custom "on" color. Supports also gradients
+        on_color: true,
+        // (bool) whether to enable compact mode
+        compact_mode: true
+      });
+    </script>
 
     <script src="./vars.js"></script>
     <script src="./interface.js"></script>

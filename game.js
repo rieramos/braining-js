@@ -190,6 +190,25 @@ function StartGame(id){ let sum_assets = () => { lives += ((lives === 3) ? 1 : 2
     }
 }
 
+//events
+
+document.querySelectorAll('input[type=checkbox], input[type=radio]').forEach(function(minimalist) {
+    
+    // triggered each time input is checked
+    minimalist.addEventListener('lcs-on', (function() {
+
+        
+
+    }));
+    
+    // triggered each time input is uncheked
+    minimalist.addEventListener('lcs-off', (function() {
+
+        
+
+    }));
+});
+
 document.addEventListener("keydown", function(event) { n = event.which
 
     keyID === '' && console.clear();
