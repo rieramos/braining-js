@@ -1,6 +1,9 @@
-let score; let startTime; let xy = new Map()
+let score; let startTime
 
-let lives = 1
+// minimalist training mode
+let mtm=false
+
+let lives = 1; let xy = new Map()
 
 // where will arrows directions IDs will be hosted
 const debug = new Map([
@@ -36,9 +39,10 @@ let showTime = () => { ss = (((Date.now() - startTime ) % 60000) / 1000)
 
             spanMaxScore.innerHTML = +(maxScore())
 
-        }; score = 0; reset(); startTime = Date.now()
+        }; score = 0; !mtm && reset()
+        
+        startTime = Date.now()
     }
-
 }; const timeInterval = () => setInterval(showTime, 100)
 
 function log(message, section) { debug.get(section) && (console.log("[braining][" + String(section) + '] ' + message))}
@@ -117,3 +121,22 @@ s----
 --c--
 ---s-
 ----s`);
+
+//                                              events
+
+document.querySelectorAll('input[type=checkbox], input[type=radio]').forEach(function(toggle) { let a;
+
+    let changeDisplay = (value) => { document.querySelector('.bar').style.display=value;
+
+        document.body.style.backgroundColor = (value === 'none') ? 'black' : 'indigo'
+        
+        pLives.style.display=value; document.querySelector('h3').style.display=value;
+    }
+
+    toggle.addEventListener('lcs-on', function(){ changeDisplay('none');
+    
+        startTime=Date.now(); mtm=true
+    });
+
+    toggle.addEventListener('lcs-off', function(){ changeDisplay(''); mtm=false; });
+});
