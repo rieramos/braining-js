@@ -116,7 +116,9 @@ function vertical_direction_conversor(n){ n = +n
     }; return (directions([38,40]).includes(n))
 };
 
-function StartGame(id){ let sum_assets = () => { lives += ((lives === 3) ? 1 : 2); score += 1 }
+function StartGame(id){
+    
+    let sum_assets = () => { lives += ((lives === 3) ? 1 : 2); score += 1; mtm && reset(); }
 
     function verified_keystroke(c){
 
@@ -176,7 +178,7 @@ function StartGame(id){ let sum_assets = () => { lives += ((lives === 3) ? 1 : 2
 
             } else if( are_identical() ){ sum_assets() }; keyID != '' && cleanKeyID();
             
-            reset(); return
+            !mtm && reset(); return
         }
     }
 
@@ -184,7 +186,7 @@ function StartGame(id){ let sum_assets = () => { lives += ((lives === 3) ? 1 : 2
 
         (are_identical(xy.get('s').join(''),true) || get_c_arrow_set().includes(id)) && verified_keystroke(id);
 
-        reset()
+        !mtm && reset()
 
         keyID != '' && cleanKeyID()
     }
