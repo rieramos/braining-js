@@ -46,7 +46,7 @@ let parallels = []
 
 function cleanKeyID(id){
     
-    log('keyID "' + String((typeof id === 'undefined') ? keyID : id) + '" erased','main')
+    log('keyID(s) stored "' + String((typeof id === 'undefined') ? keyID : id) + '" erased','game')
     
     console.log('-'); keyID = ''
 }
