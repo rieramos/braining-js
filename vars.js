@@ -11,6 +11,8 @@ const debug = new Map([
     ['main', false]
 ]);
 
+const canvas = document.querySelector('#game')
+
 const pLives = document.querySelector('.lives');
 
 const spanScores = document.querySelector('.pScores');
@@ -26,13 +28,13 @@ let maxScore = () => { n = localStorage.getItem('maxScore')
 const spanTime = document.querySelector('.pTime');
 
 let showTime = () => { ss = (((Date.now() - startTime ) % 60000) / 1000)
-    
+
     spanTime.innerHTML = ss.toFixed(2)
 
     if(+ss.toFixed(0) === 30){
 
         if(score < +(maxScore())){ lives = 1 } else{
-            
+
             $( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
 
             lives += 1; localStorage.setItem('maxScore', score)
@@ -40,7 +42,7 @@ let showTime = () => { ss = (((Date.now() - startTime ) % 60000) / 1000)
             spanMaxScore.innerHTML = +(maxScore())
 
         }; score = 0; !mtm && reset()
-        
+
         startTime = Date.now()
     }
 }; const timeInterval = () => setInterval(showTime, 100)
@@ -128,15 +130,19 @@ document.querySelectorAll('input[type=checkbox], input[type=radio]').forEach(fun
 
     let changeDisplay = (value) => { document.querySelector('.bar').style.display=value;
 
-        document.body.style.backgroundColor = (value === 'none') ? 'black' : 'indigo'
-        
+        document.body.style.backgroundColor = (value === 'none') ? '#13f4ee' : 'indigo'
+
+        canvas.style.backgroundColor = (value === 'none') ? 'transparent' : '#feff9d'
+
+        canvas.style.border = (value === 'none') ? '0px' : '4px solid gray'
+
         pLives.style.display=value; document.querySelector('h3').style.display=value;
     }
 
     toggle.addEventListener('lcs-on', function(){ changeDisplay('none');
-    
-        startTime=Date.now(); mtm=true
+
+        startTime=Date.now(); mtm=true; main()
     });
 
-    toggle.addEventListener('lcs-off', function(){ changeDisplay(''); mtm=false; });
+    toggle.addEventListener('lcs-off', function(){ changeDisplay(''); mtm=false; main(); });
 });
