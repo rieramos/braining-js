@@ -4,7 +4,7 @@ let difficulty = 5 //temporary cells box n
 
 //function warn(message) { debug && console.warn("[braining][main] " + message); }
 
-canvas = document.querySelector('#game'); game = canvas.getContext('2d');
+game = canvas.getContext('2d');
 
 //events
 window.addEventListener('load', () => { interface_(); main() })
@@ -105,7 +105,8 @@ function characters_(type){ game.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     map.forEach((n, x) => {
-        n.forEach((wildcard, y) => {
+        n.forEach((wildcard, y) => { game.fillStyle = mtm ? 'white' : 'black'
+
             game.fillText((wildcard === '-') ? ' ' : item(xy.get(wildcard)), [size * (y + 1)], [size * (x + 1)]);
         });
     });

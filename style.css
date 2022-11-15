@@ -43,7 +43,7 @@ h3{ width: 98%; margin: 0; text-align: center;}
 canvas {
   border: 4px solid gray;
   border-radius: 8px;
-  background-color: white;
+  background-color: #feff9d;
 }
 
 p { margin: 0; }
