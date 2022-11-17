@@ -20,7 +20,8 @@ let item = (arr) => { key = arr.join('') //arr[0]+ '' + ((arr[1]) ? arr[1] : '')
 }
 
 //events
-window.addEventListener('load', () => { interface_(); main(); initCanvas(); })
+window.addEventListener('load', () => { interface_(); main(); fade_(); })
+
 window.addEventListener('resize', () => { interface_(); characters_('resize') });
 
 function interface_(){
@@ -106,59 +107,57 @@ function characters_(type){ game.clearRect(0, 0, canvas.width, canvas.height);
     }
 };
 
-function initCanvas() { let character,yPlaneAxis,xPlaneAxis
- 
-    let i = -1; let fTime = 0
+function fade_(){ setInterval(function(){ fContinue = true; }, 3000)
 
-     function Fade(){
-         this.render = function(fInTime,fOutTime){
-             // fade in
-             if(fTime < fInTime){ game.globalAlpha = 0; }
-             // fade in
-             else if(fTime >= fInTime && fTime <= 50+fInTime){ game.globalAlpha = 1*(fTime-fInTime)/50; }
-             
-             // fade in stop
-             else if(fTime < fOutTime) { game.globalAlpha = 1; }
-             
-             // fade out
-             else if(fTime >= fOutTime && fTime <= fOutTime+50) { game.globalAlpha = 1-1*(fTime-fOutTime)/50; }
-             
-             // fade out stop
-             else if(fTime > fOutTime+50) { game.globalAlpha = 0; }
-             
-             // else ?
-             else { game.globalAlpha = 0; }
-         }
-     }; fade = new Fade();
+    function Fade(){
+        this.render = function(){ let fInTime = 50;
+            // fade in
+            if(fTime < 0){ game.globalAlpha = 0; } else
+            // fade in
+            if(fTime >= 0 && fTime <= fInTime){ game.globalAlpha = 1*fTime/fInTime; } else
+            
+            // fade in stop
+            if( fTime < (fInTime + 10)) { fContinue = false;
 
-     function Rect(rColor){
-     
+                game.globalAlpha = 1; fTime = (fInTime + 11); } else
+
+            // fade out
+            if(fTime >= fInTime && fTime <= (fInTime*2)) {
+                
+                game.globalAlpha = 1-1*(fTime-fInTime)/fInTime; } else
+            
+            // fade out stop
+            if(fTime > (fInTime*2)) { game.globalAlpha = 0; } else { game.globalAlpha = 0; }
+        }
+    }; fade = new Fade();
+
+    function Rect(rColor){
+
         if(rColor == 'random') { rColor = '#'+Math.floor(Math.random()*16777215).toString(16); }
 
-        this.render = function(fOutTime,fInTime){
-             
-            fade.render((typeof fInTime === 'undefined') ? 0 : fInTime,fOutTime)
-            //fade.render(10,1)
+        this.render = function(){ fade.render() //fade.render(10,1)
 
-            game.fillStyle = rColor; game.fillText(character,yPlaneAxis,xPlaneAxis)
-            
-            game.globalAlpha = 1//; console.log('fAlpha ='+fade.fAlpha)
-        }     
-     }; function TimeLine(){ this.render = function(){ fTime++; } }; timeLine = new TimeLine();
+            game.fillStyle = rColor; game.fillText(character,yPlaneAxis,xPlaneAxis); game.globalAlpha = 1   
+            //console.log('fAlpha ='+fade.fAlpha)
+        }
+    }; function TimeLine(){ this.render = function(){ fContinue && fTime++; }; }
+    
+    timeLine = new TimeLine(); color = 'random'//'rgba(255,255,255,1)';
 
-    color = 'random';
-    // var color = 'rgba(255,255,255,1)';
+    rect0 = new Rect(color); rect1 = new Rect(color); rect2 = new Rect(color)
+    rect3 = new Rect(color); rect4 = new Rect(color); rect5 = new Rect(color)
+    rect6 = new Rect(color); rect7 = new Rect(color); rect8 = new Rect(color)
 
-    var rect0 = new Rect(color);
-    var rect1 = new Rect(color); var rect2 = new Rect(color); var rect3 = new Rect(color); var rect4 = new Rect(color)
-    var rect5 = new Rect(color); var rect6 = new Rect(color); var rect7 = new Rect(color); var rect8 = new Rect(color)
-   
-     function animate() { game.save()
+    let character,yPlaneAxis,xPlaneAxis
+
+    let i = -1; let fTime = 0
+
+    function animate() { game.save()
+
+        game.clearRect(0, 0, game.canvas.width, game.canvas.height)
         
-        game.clearRect(0, 0, game.canvas.width, game.canvas.height); timeLine.render()
-        
-        //game.fillStyle = '#fff'
-        
+        timeLine.render()
+
         game.fillText('',0, 0)
 
         map.forEach((n, x) => { i++
@@ -167,23 +166,20 @@ function initCanvas() { let character,yPlaneAxis,xPlaneAxis
                 if(wildcard != '-'){ character = item(xy.get(wildcard))
                     
                     switch(i){ 
-                        case 0: rect0.render(170); case 1: rect1.render(195)
-                        case 2: rect2.render(110); case 3: rect3.render(125)
+                        case 0: rect0.render(); case 1: rect1.render()
+                        case 2: rect2.render(); case 3: rect3.render()
 
-                        case 4: rect4.render(190,25)
+                        case 4: rect4.render()
                         
-                        case 5: rect5.render(155); case 6: rect6.render(170)
-                        case 7: rect7.render(175); case 8: rect8.render(200)
+                        case 5: rect5.render(); case 6: rect6.render()
+                        case 7: rect7.render(); case 8: rect8.render()
                     }
                 }
             })
         }); i = -1
 
-         if (fTime >= 250){ fTime = 0; main(); }
+        if (fTime >= 110){ fContinue = false; fTime = 0; cleanKeyID(); main(); }
 
-         game.restore()
+    }; const animateInterval = setInterval(animate, 5);
 
-     }; var animateInterval = setInterval(animate, 15);
- }
-
-function main() { map_n = Math.floor(Math.random()*maps.length); wildcards_(); characters_(); };
+}; function main() { map_n = Math.floor(Math.random()*maps.length); wildcards_(); characters_(); fContinue = true; };
