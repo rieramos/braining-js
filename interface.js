@@ -28,7 +28,7 @@ function interface_(){
 
     function canva_size(){ 
 
-        const element = (function(){ height = window.innerHeight; width = window.innerWidth; measure = 0.3;
+        const element = (function(){ height = window.innerHeight; width = window.innerWidth; measure = 0.8;
 
             return height < width ? (height * measure) : (width * measure);
 
@@ -38,7 +38,7 @@ function interface_(){
 
     }
     
-    size = Math.floor(canva_size()) / 3; log('icons size: ' + size + 'px','main');
+    size = ((Math.floor(canva_size()) / 5) - 3); log('icons size: ' + size + 'px','main');
 
     game.font = size + 'px Verdana' ; game.textAlign = 'end'
 }

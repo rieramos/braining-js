@@ -91,34 +91,46 @@ const maps = [];
 // 's': (s)urrounding arrows
 
 maps.push(`
-s-s
--c-
----`);
+s---s
+-s-s-
+--c--
+-----
+-----`);
 
 maps.push(`
---s
--c-
---s`);
+----s
+---s-
+--c--
+---s-
+----s`);
 
 maps.push(`
----
--c-
-s-s`);
+-----
+-----
+--c--
+-s-s-
+s---s`);
 
 maps.push(`
-s--
--c-
-s--`);
+s----
+-s---
+--c--
+-s---
+s----`);
 
 maps.push(`
---s
--c-
-s--`);
+----s
+---s-
+--c--
+-s---
+s----`);
 
 maps.push(`
-s--
--c-
---s`);
+s----
+-s---
+--c--
+---s-
+----s`);
 
 //                                              events
 
