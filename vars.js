@@ -1,9 +1,12 @@
-let score; let startTime
+let mtm // minimalist training mode
 
-// minimalist training mode
-let mtm=false
+let keyID = ''
 
-let lives = 1; let xy = new Map()
+let xy = new Map()
+
+let fContinue, validatingResponse
+
+let score, pulsations, startTime, lives = 1 //numbers
 
 // where will arrows directions IDs will be hosted
 const debug = new Map([
@@ -45,7 +48,12 @@ let showTime = () => { ss = (((Date.now() - startTime ) % 60000) / 1000)
 
         startTime = Date.now()
     }
-}; const timeInterval = () => setInterval(showTime, 100)
+}//; const timeInterval = () => setInterval(showTime, 100)
+
+let cleanKeyID = () => { console.clear(); log('keyID(s) stored "' + keyID + '" erased','game'); console.log('-')
+
+    keyID = ''; validatingResponse = false
+}
 
 function log(message, section) { debug.get(section) && (console.log("[braining][" + String(section) + '] ' + message))}
 

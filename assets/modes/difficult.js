@@ -32,24 +32,15 @@ let setAssets = () => {
     
 }; setAssets()
 
-let reset = () => { cleanKeyID(keyID); main()
+let reset = () => { //cleanKeyID();
 
-    if(typeof startTime === 'undefined'){ startTime = Date.now(); timeInterval() }
+    //if(typeof startTime === 'undefined'){ startTime = Date.now(); timeInterval() }
 
     setAssets()
 }
 
 /**/
-
-let keyID = ''
 let parallels = []
-
-function cleanKeyID(id){
-    
-    log('keyID(s) stored "' + String((typeof id === 'undefined') ? keyID : id) + '" erased','game')
-    
-    console.log('-'); keyID = ''
-}
 
 let are_identical = (value, not_compare) => { typeof value === 'undefined' && (value = xy.get('s').join(''))
 
@@ -118,7 +109,7 @@ function vertical_direction_conversor(n){ n = +n
 
 function StartGame(id){
     
-    let sum_assets = () => { lives += ((lives === 3) ? 1 : 2); score += 1; mtm && reset(); }
+    let sum_assets = () => { lives += ((lives === 3) ? 1 : 2); score++; mtm && reset(); }
 
     function verified_keystroke(c){
 
@@ -153,7 +144,7 @@ function StartGame(id){
     /*the central arrow isn't a 'normal' (one keystroke) challenge?
     eg. wilcards.get('c') = [37, 37] (3737, in theory) = '↞'*/
 
-    if (xy.get('c')[1]){ keyID = keyID + '' + id
+    if (xy.get('c')[1]){
 
         //its a parallel arrow ({↕,↔})?
 
@@ -176,7 +167,7 @@ function StartGame(id){
 
             // else, must be identical
 
-            } else if( are_identical() ){ sum_assets() }; keyID != '' && cleanKeyID();
+            } else if( are_identical() ){ sum_assets() }//; keyID != '' && cleanKeyID();
             
             !mtm && reset(); return
         }
@@ -188,6 +179,6 @@ function StartGame(id){
 
         !mtm && reset()
 
-        keyID != '' && cleanKeyID()
+        fContinue = true
     }
 }
