@@ -34,7 +34,7 @@ let showTime = () => { ss = (((Date.now() - startTime ) % 60000) / 1000)
 
     spanTime.innerHTML = ss.toFixed(2)
 
-    if(+ss.toFixed(0) === 30){
+    if(+ss.toFixed(0) === 30){ fContinue = false
 
         if(score < +(maxScore())){ lives = 1 } else{
 
@@ -46,9 +46,9 @@ let showTime = () => { ss = (((Date.now() - startTime ) % 60000) / 1000)
 
         }; score = 0; !mtm && reset()
 
-        startTime = Date.now()
+        startTime = Date.now(); fContinue = true
     }
-}//; const timeInterval = () => setInterval(showTime, 100)
+}; const timeInterval = () => setInterval(showTime, 100)
 
 let cleanKeyID = () => { console.clear(); log('keyID(s) stored "' + keyID + '" erased','game'); console.log('-')
 

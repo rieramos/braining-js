@@ -34,7 +34,7 @@ let setAssets = () => {
 
 let reset = () => { //cleanKeyID();
 
-    //if(typeof startTime === 'undefined'){ startTime = Date.now(); timeInterval() }
+    if(typeof startTime === 'undefined'){ startTime = Date.now(); timeInterval() }
 
     setAssets()
 }
